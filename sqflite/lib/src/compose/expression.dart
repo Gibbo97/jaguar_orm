@@ -73,7 +73,7 @@ String? composeValue(dynamic val) {
   } else if (val is double || val is num) {
     return "$val";
   } else if (val is DateTime) {
-    return '"$val"';
+    return "'$val'";
   } else if (val is bool) {
     return val ? "1" : "0";
   } else if (val is Field) {
