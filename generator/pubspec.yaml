@@ -15,7 +15,7 @@ dependencies:
     path: ../query
   jaguar_orm: #^2.2.7
     path: ../orm
-  analyzer: ^2.8.0
+  analyzer: ^4.7.0
   build: ^2.0.1
   logging: ^1.0.1
   source_gen: ^1.0.0
@@ -30,7 +30,7 @@ dependency_overrides:
 
 dev_dependencies:
   test: ^1.17.1
-  build_runner: ^2.0.2
+  build_runner: ^2.2.1
   build_test: ^2.1.0
   collection: ^1.15.0
   path: ^1.8.0
