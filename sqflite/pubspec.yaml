@@ -16,7 +16,7 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  sqflite: 2.1.0
+  sqflite: 2.1.0+1
   jaguar_query: #^2.2.9
     path: ../query
 
