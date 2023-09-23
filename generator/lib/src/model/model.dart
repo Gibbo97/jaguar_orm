@@ -1,7 +1,6 @@
 library jaguar_orm.generator.model;
 
 import 'package:collection/collection.dart' show IterableExtension;
-import 'package:meta/meta.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:jaguar_orm_gen/src/common/common.dart';
 

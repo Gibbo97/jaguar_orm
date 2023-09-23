@@ -1034,9 +1034,8 @@ class Writer {
   }
 
   void _writeAttach() {
-    final BelongsToAssociation? m = _b.belongTos.values.firstWhereOrNull(
-        (BelongsToAssociation f) =>
-            f is BelongsToAssociation && f.belongsToMany);
+    final BelongsToAssociation? m = _b.belongTos.values.firstWhereOrNull((BelongsToAssociation f) => f.belongsToMany);
+
     if (m == null) return;
 
     final BelongsToAssociation m1 = _b.getMatchingManyToMany(m)!;

@@ -68,7 +68,7 @@ class ParsedBean {
 
   final beanedForeignAssociations = <DartType, BeanedForeignAssociation>{};
 
-  ParsedBean(this.clazz, {this.doRelations: true, this.doAssociation: true});
+  ParsedBean(this.clazz, {this.doRelations = true, this.doAssociation = true});
 
   WriterModel detect() {
     _getModel();
@@ -103,15 +103,13 @@ class ParsedBean {
         }
         current = BelongsToAssociation(bean, [], [], other, byHasMany);
         beanedAssociations[bean] = current;
-      } else if (current is BelongsToAssociation) {
+      } else {
         if (current.byHasMany != other.hasMany) {
           throw Exception('Mismatching association type!');
         }
         if (current.belongsToMany != other is PreloadManyToMany) {
           throw Exception('Mismatching association type!');
         }
-      } else {
-        throw Exception('Table and bean associations mixed!');
       }
       beanedAssociations[bean]!.fields.add(f);
     }
@@ -141,12 +139,10 @@ class ParsedBean {
       if (current == null) {
         current = BeanedForeignAssociation(bean, [], [], foreign.byHasMany!);
         beanedForeignAssociations[bean] = current;
-      } else if (current is BeanedForeignAssociation) {
+      } else {
         if (current.byHasMany != foreign.byHasMany) {
           throw Exception('Mismatching association type!');
         }
-      } else {
-        throw Exception('Table and bean associations mixed!');
       }
       beanedForeignAssociations[bean]!.fields.add(f);
     }
@@ -246,7 +242,7 @@ class ParsedBean {
 
     model = interface.typeArguments.first;
 
-    if (model.isDynamic) {
+    if (model is DynamicType) {
       throw Exception("Don't support Model of type dynamic!");
     }
   }
@@ -386,7 +382,7 @@ class ParsedBean {
           final WriterModel info =
               ParsedBean(bean.element as ClassElement?, doRelations: false).detect();
           g = info.belongTos[curBean];
-          if (g == null || g is! BelongsToAssociation)
+          if (g == null)
             throw Exception('Association $bean not found! Field ${f.name}.');
         }
       }
@@ -412,7 +408,7 @@ class ParsedBean {
         final WriterModel beanInfo =
             ParsedBean(pivot.element as ClassElement?, doRelations: false).detect();
         g = beanInfo.belongTos[curBean];
-        if (g == null || g is! BelongsToAssociation) {
+        if (g == null) {
           throw Exception('Association $curBean not found! Field ${f.name}.');
         }
         final WriterModel targetInfo =
