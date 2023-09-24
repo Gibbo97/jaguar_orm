@@ -117,11 +117,11 @@ String getValType(String type) {
 abstract class Preload {
   DartType get bean;
 
-  String get beanName => bean.name!;
+  String get beanName => bean.getDisplayString(withNullability: false);
 
   String get beanInstanceName => uncap(modelName) + 'Bean';
 
-  String get modelName => getModelForBean(bean).name!;
+  String get modelName => getModelForBean(bean).getDisplayString(withNullability: false);
 
   String get property;
 
@@ -153,11 +153,11 @@ class PreloadManyToMany extends Preload {
 
   final DartType targetBean;
 
-  String get targetBeanName => targetBean.name!;
+  String get targetBeanName => targetBean.getDisplayString(withNullability: false);
 
   String get targetBeanInstanceName => uncap(targetModelName) + 'Bean';
 
-  String get targetModelName => getModelForBean(targetBean).name!;
+  String get targetModelName => getModelForBean(targetBean).getDisplayString(withNullability: false);
 
   final String property;
 

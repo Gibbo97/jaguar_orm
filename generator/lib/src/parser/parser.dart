@@ -205,7 +205,7 @@ class ParsedBean {
       }
     }
 
-    final ret = WriterModel(clazz!.name, model.name!, fields, primaries,
+    final ret = WriterModel(clazz!.name, model.getDisplayString(withNullability: false), fields, primaries,
         beanedAssociations, beanedForeignAssociations, preloads);
 
     if (doRelations) {
@@ -328,7 +328,7 @@ class ParsedBean {
           if (val.isPrimary) primaries.add(val);
         } else {
           if (!_relation(clazz!.thisType, field)) {
-            final vf = Field(field.type.name!, field.name, field.name,
+            final vf = Field(field.type.getDisplayString(withNullability: false), field.name, field.name,
                 unique: null,
                 length: 0,
                 autoIncrement: false,
@@ -435,7 +435,7 @@ Field parseColumn(FieldElement f, DartObject obj) {
   final bool? autoIncrement = obj.getField('auto')!.toBoolValue();
   final int? length = obj.getField('length')!.toIntValue();
   if (isColumn.isExactlyType(obj.type!)) {
-    return Field(f.type.name!, f.name, colName,
+    return Field(f.type.getDisplayString(withNullability: false), f.name, colName,
         isNullable: isNullable!,
         autoIncrement: autoIncrement!,
         length: length ?? 0,
@@ -444,7 +444,7 @@ Field parseColumn(FieldElement f, DartObject obj) {
         unique: unique,
         isFinal: f.isFinal);
   } else if (isPrimaryKey.isExactlyType(obj.type!)) {
-    return Field(f.type.name!, f.name, colName,
+    return Field(f.type.getDisplayString(withNullability: false), f.name, colName,
         isNullable: isNullable!,
         isPrimary: true,
         autoIncrement: autoIncrement!,
@@ -459,7 +459,7 @@ Field parseColumn(FieldElement f, DartObject obj) {
 
     Foreign fore = TableForeign(table, refCol);
 
-    return Field(f.type.name!, f.name, colName,
+    return Field(f.type.getDisplayString(withNullability: false), f.name, colName,
         isNullable: isNullable!,
         isPrimary: isPrimary,
         foreign: fore,
@@ -479,7 +479,7 @@ Field parseColumn(FieldElement f, DartObject obj) {
     }
 
     Foreign fore = BelongsToForeign(bean, refCol, byHasMany, toMany);
-    return Field(f.type.name!, f.name, colName,
+    return Field(f.type.getDisplayString(withNullability: false), f.name, colName,
         isNullable: isNullable!,
         isPrimary: isPrimary,
         foreign: fore,
