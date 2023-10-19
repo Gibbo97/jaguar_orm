@@ -65,8 +65,22 @@ String composeJoinedTable(final JoinedTable join) {
   return sb.toString();
 }
 
-String composeOrderBy(final OrderBy orderBy) =>
-    '${orderBy.columnName} ' + (orderBy.ascending ? 'ASC' : 'DESC');
+String composeOrderBy(final OrderBy orderBy) {
+  final sb = new StringBuffer();
+  sb.write('${orderBy.columnName} ');
+
+  if (orderBy.collate != null) {
+    sb.write('COLLATE ${orderBy.collate!.name} ');
+  }
+
+  if (orderBy.ascending) {
+    sb.write('ASC');
+  } else {
+    sb.write('DESC');
+  }
+
+  return sb.toString();
+}
 
 String composeFind(final Find find) {
   final ImmutableFindStatement info = find.asImmutable;

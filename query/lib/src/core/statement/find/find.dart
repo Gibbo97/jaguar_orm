@@ -178,14 +178,14 @@ class Find implements Statement, Whereable {
   Find isIn<T>(String column, Set<T> values) =>
       and(q.isIn<T>(column, values));
 
-  Find orderBy(String column, [bool ascending = false]) {
-    _orderBy.add(OrderBy(column, ascending));
+  Find orderBy(String column, [bool ascending = false, Collate? collate]) {
+    _orderBy.add(OrderBy(column, ascending, collate));
     return this;
   }
 
-  Find orderByMany(List<String> columns, [bool ascending = false]) {
+  Find orderByMany(List<String> columns, [bool ascending = false, Collate? collate]) {
     columns.forEach((String column) {
-      _orderBy.add(OrderBy(column, ascending));
+      _orderBy.add(OrderBy(column, ascending, collate));
     });
     return this;
   }
@@ -253,5 +253,9 @@ class OrderBy {
 
   final bool ascending;
 
-  const OrderBy(this.columnName, [this.ascending = false]);
+  final Collate? collate;
+
+  const OrderBy(this.columnName, [this.ascending = false, this.collate]);
 }
+
+enum Collate {BINARY, NOCASE, RTRIM}
